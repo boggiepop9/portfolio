@@ -6,13 +6,23 @@
   <meta name="description" content="Tristan Panniers — Game Sound Designer. Credits on AAA titles including The Callisto Protocol, The Elder Scrolls Online, Asgard's Wrath, and more." />
   <title>Tristan Panniers | Game Sound Designer</title>
 
+  <style>
+    .hero-subtitle { font-size: 16px; }
+    @media (min-width: 768px) { .hero-subtitle { font-size: 20px; } }
+    /* Hero name — fluid on mobile, fixed steps at sm/md/lg */
+    .hero-name-span { font-size: clamp(60px, 20vw, 80px); }
+    @media (min-width: 640px)  { .hero-name-span { font-size: 4.5rem; } }
+    @media (min-width: 768px)  { .hero-name-span { font-size: 6rem;   } }
+    @media (min-width: 1024px) { .hero-name-span { font-size: 9rem;   } }
+  </style>
+
   <!-- Preconnect for Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Compiled Tailwind CSS -->
-  <link rel="stylesheet" href="dist/output.css" />
+  <link rel="stylesheet" href="dist/output.css?v=2" />
 </head>
 
 <body class="bg-[#080c18] text-white font-body antialiased overflow-x-hidden">
@@ -88,13 +98,13 @@
     <!-- Hero content -->
     <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-20">
 
-      <p class="fade-up fade-up-d1 font-heading font-semibold text-[#e84b3a] text-sm md:text-base tracking-[0.5em] uppercase mb-5">
+      <p class="hero-subtitle fade-up fade-up-d1 font-heading font-semibold text-[#e84b3a] tracking-[0.5em] uppercase mb-5">
         Game Sound Designer
       </p>
 
       <h1 class="fade-up fade-up-d2 font-heading font-bold uppercase leading-[0.9] mb-6">
-        <span class="block text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] tracking-tight text-white">Tristan</span>
-        <span class="block text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] tracking-tight text-stroke">Panniers</span>
+        <span class="hero-name-span block tracking-tight text-white">Tristan</span>
+        <span class="hero-name-span block tracking-tight text-stroke">Panniers</span>
       </h1>
 
       <p class="fade-up fade-up-d3 font-body text-slate-300 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
@@ -115,7 +125,7 @@
 
     <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40" aria-hidden="true">
-      <span class="font-heading text-[10px] tracking-[0.3em] uppercase text-slate-400">Scroll</span>
+      <span class="font-heading text-xs tracking-[0.3em] uppercase text-slate-400">Scroll</span>
       <div class="w-px h-10 bg-gradient-to-b from-slate-400 to-transparent"></div>
     </div>
   </section>
@@ -135,15 +145,26 @@
       </div>
 
       <!-- Player + Playlist -->
-      <div class="reveal grid lg:grid-cols-[1fr_300px] border border-white/5">
+      <div class="reveal grid lg:grid-cols-[1fr_300px] border border-white/5" style="column-gap: 1.5rem;">
 
         <!-- Left: video + description -->
         <div class="flex flex-col">
           <div class="relative w-full aspect-video bg-black">
+            <!-- Layer B: inactive (hidden beneath) -->
             <iframe
-              id="reel-player"
+              id="reel-player-b"
+              src=""
+              class="absolute inset-0 w-full h-full"
+              style="opacity:0; z-index:1; transition: opacity 0.5s ease;"
+              allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
+              allowfullscreen
+            ></iframe>
+            <!-- Layer A: active (on top) -->
+            <iframe
+              id="reel-player-a"
               src="https://player.vimeo.com/video/954555976?title=0&byline=0&portrait=0"
               class="absolute inset-0 w-full h-full"
+              style="opacity:1; z-index:2; transition: opacity 0.5s ease;"
               allow="autoplay; fullscreen; picture-in-picture; accelerometer; clipboard-write; encrypted-media; gyroscope"
               allowfullscreen
             ></iframe>
@@ -159,7 +180,7 @@
         </div>
 
         <!-- Right: playlist -->
-        <div class="border-t lg:border-t-0 lg:border-l border-white/5 flex flex-col divide-y divide-white/5 lg:overflow-y-auto">
+        <div class="border-t lg:border-t-0 border-white/5 flex flex-col divide-y divide-white/5 lg:overflow-y-auto">
 
           <button class="reel-item reel-item--active w-full text-left p-4 flex gap-3 items-start transition-colors duration-200 hover:bg-[#111827]"
             data-src="https://player.vimeo.com/video/954555976?title=0&byline=0&portrait=0"
@@ -176,9 +197,9 @@
             data-src="https://player.vimeo.com/video/951212541?title=0&byline=0&portrait=0"
             data-title="Cinematic Sound Design — Dauntless"
             data-desc="A sound re-design of a scene from Dauntless showcasing a fantasy setting.">
-            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0 text-slate-500">02</span>
+            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0">02</span>
             <div>
-              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight text-slate-300">Cinematic Sound Design — Dauntless</p>
+              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight">Cinematic Sound Design — Dauntless</p>
               <p class="font-body text-xs text-slate-600 mt-1 leading-snug">Fantasy setting sound re-design.</p>
             </div>
           </button>
@@ -187,9 +208,9 @@
             data-src="https://player.vimeo.com/video/951212081?title=0&byline=0&portrait=0"
             data-title="Cinematic Sound Design — Avatar"
             data-desc="A sound re-design of a scene from Avatar showcasing a sci-fi setting.">
-            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0 text-slate-500">03</span>
+            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0">03</span>
             <div>
-              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight text-slate-300">Cinematic Sound Design — Avatar</p>
+              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight">Cinematic Sound Design — Avatar</p>
               <p class="font-body text-xs text-slate-600 mt-1 leading-snug">Sci-fi setting sound re-design.</p>
             </div>
           </button>
@@ -198,9 +219,9 @@
             data-src="https://www.youtube.com/embed/U_A6bzqYn-Y"
             data-title="Wwise Project Implementation Walkthrough"
             data-desc="A technical overview of the Wwise setup for &lt;em&gt;Project Bismuth&lt;/em&gt; at Phoenix Labs. As Lead Designer, I developed the full audio system from zero in four months.">
-            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0 text-slate-500">04</span>
+            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0">04</span>
             <div>
-              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight text-slate-300">Wwise Project Implementation Walkthrough</p>
+              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight">Wwise Project Implementation Walkthrough</p>
               <p class="font-body text-xs text-slate-600 mt-1 leading-snug">Full audio system built from zero in four months.</p>
             </div>
           </button>
@@ -209,9 +230,9 @@
             data-src="https://www.youtube.com/embed/qOy1fcpbGJY"
             data-title="Game Audio Demo — Implementation"
             data-desc="A technical demonstration of Unreal and FMOD implementation. Originally developed as an early exploration of core systems, it showcases techniques such as material systems, animation tagging, blueprint scripting, occlusion, and spatialization.">
-            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0 text-slate-500">05</span>
+            <span class="reel-num font-heading font-bold text-xs mt-0.5 shrink-0">05</span>
             <div>
-              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight text-slate-300">Game Audio Demo — Implementation</p>
+              <p class="reel-item-title font-heading font-semibold text-sm uppercase tracking-wide leading-tight">Game Audio Demo — Implementation</p>
               <p class="font-body text-xs text-slate-600 mt-1 leading-snug">Unreal &amp; FMOD implementation techniques.</p>
             </div>
           </button>
@@ -260,20 +281,20 @@
           </div>
 
           <!-- Stats -->
-          <div class="mt-10 flex flex-wrap items-center gap-8">
+          <div class="mt-10 hidden md:flex flex-wrap items-center gap-8">
             <div class="text-center">
               <div class="font-heading font-bold text-4xl text-[#e84b3a]">AAA</div>
-              <div class="font-heading text-[10px] tracking-[0.3em] uppercase text-slate-500 mt-1">Game Credits</div>
+              <div class="font-heading font-semibold text-xs tracking-[0.3em] uppercase text-slate-500 mt-1">Game Credits</div>
             </div>
             <div class="h-10 w-px bg-white/10"></div>
             <div class="text-center">
               <div class="font-heading font-bold text-4xl text-[#e84b3a]">15+</div>
-              <div class="font-heading text-[10px] tracking-[0.3em] uppercase text-slate-500 mt-1">Years Experience</div>
+              <div class="font-heading font-semibold text-xs tracking-[0.3em] uppercase text-slate-500 mt-1">Years Experience</div>
             </div>
             <div class="h-10 w-px bg-white/10"></div>
             <div class="text-center">
               <div class="font-heading font-bold text-4xl text-[#e84b3a]">14+</div>
-              <div class="font-heading text-[10px] tracking-[0.3em] uppercase text-slate-500 mt-1">Shipped Titles</div>
+              <div class="font-heading font-semibold text-xs tracking-[0.3em] uppercase text-slate-500 mt-1">Shipped Titles</div>
             </div>
           </div>
         </div>
@@ -296,7 +317,7 @@
             <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-[#e84b3a]" aria-hidden="true"></div>
           </div>
           <!-- Label -->
-          <p class="mt-3 font-heading text-[10px] tracking-widest uppercase text-slate-600 text-right">
+          <p class="mt-3 font-heading text-xs tracking-widest uppercase text-slate-600 text-right">
             Home Recording Studio
           </p>
         </div>
@@ -331,12 +352,11 @@
           />
           <div class="absolute top-3 right-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2 py-1 border border-[#d4af37]/40">
             <svg class="w-3 h-3 text-[#d4af37]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3.82V7h2v1c0 1.33-.84 2.47-2 2.9V8.82zM5 8V7h2v3.9C5.84 10.47 5 9.33 5 8z"/></svg>
-            <span class="font-heading font-bold text-[9px] tracking-widest uppercase text-[#d4af37]">Award</span>
+            <span class="font-heading font-bold text-xs tracking-widest uppercase text-[#d4af37]">Award</span>
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">Asgard's Wrath</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -350,12 +370,11 @@
           />
           <div class="absolute top-3 right-3 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2 py-1 border border-[#e84b3a]/40">
             <svg class="w-3 h-3 text-[#e84b3a]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3.82V7h2v1c0 1.33-.84 2.47-2 2.9V8.82zM5 8V7h2v3.9C5.84 10.47 5 9.33 5 8z"/></svg>
-            <span class="font-heading font-bold text-[9px] tracking-widest uppercase text-[#e84b3a]">Award</span>
+            <span class="font-heading font-bold text-xs tracking-widest uppercase text-[#e84b3a]">Award</span>
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">The Callisto Protocol</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -370,7 +389,6 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">The Elder Scrolls Online</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -385,7 +403,6 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">Marvel Powers United VR</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -400,7 +417,6 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">Lollipop Chainsaw</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -415,7 +431,6 @@
           <div class="absolute inset-0 bg-gradient-to-t from-[#080c18] via-[#080c18]/40 to-transparent" aria-hidden="true"></div>
           <div class="absolute bottom-0 left-0 right-0 p-5">
             <h3 class="font-heading font-bold text-base uppercase tracking-wide">Sine Mora EX</h3>
-            <p class="font-heading text-[10px] text-[#e84b3a] tracking-widest uppercase mt-1">Sound Design</p>
           </div>
         </article>
 
@@ -444,11 +459,11 @@
             <svg class="w-7 h-7 text-[#d4af37] shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3.82V7h2v1c0 1.33-.84 2.47-2 2.9V8.82zM5 8V7h2v3.9C5.84 10.47 5 9.33 5 8z"/>
             </svg>
-            <span class="font-heading font-bold text-[10px] tracking-widest uppercase px-2.5 py-1 bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30">
+            <span class="font-heading font-bold text-xs tracking-widest uppercase px-2.5 py-1 bg-[#d4af37]/15 text-[#d4af37] border border-[#d4af37]/30">
               Gold Winner
             </span>
           </div>
-          <p class="font-heading font-semibold text-[10px] tracking-widest uppercase text-slate-500 mb-1">NYX Game Awards &middot; 2024</p>
+          <p class="font-heading font-semibold text-xs tracking-widest uppercase text-slate-500 mb-1">NYX Game Awards &middot; 2024</p>
           <p class="font-heading font-bold text-lg uppercase tracking-wide text-white leading-tight mb-3">Best Audio Design</p>
           <p class="font-body text-sm text-slate-400 mt-auto">Asgard's Wrath 2</p>
         </div>
@@ -459,11 +474,11 @@
             <svg class="w-7 h-7 text-[#e84b3a] shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3.82V7h2v1c0 1.33-.84 2.47-2 2.9V8.82zM5 8V7h2v3.9C5.84 10.47 5 9.33 5 8z"/>
             </svg>
-            <span class="font-heading font-bold text-[10px] tracking-widest uppercase px-2.5 py-1 bg-[#e84b3a]/15 text-[#e84b3a] border border-[#e84b3a]/30">
+            <span class="font-heading font-bold text-xs tracking-widest uppercase px-2.5 py-1 bg-[#e84b3a]/15 text-[#e84b3a] border border-[#e84b3a]/30">
               Winner
             </span>
           </div>
-          <p class="font-heading font-semibold text-[10px] tracking-widest uppercase text-slate-500 mb-1">NAVGTR &middot; 2023</p>
+          <p class="font-heading font-semibold text-xs tracking-widest uppercase text-slate-500 mb-1">NAVGTR &middot; 2023</p>
           <p class="font-heading font-bold text-lg uppercase tracking-wide text-white leading-tight mb-3">Use of Sound</p>
           <p class="font-body text-sm text-slate-400 mt-auto">The Callisto Protocol</p>
         </div>
@@ -474,11 +489,11 @@
             <svg class="w-7 h-7 text-slate-500 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zm-2 3.82V7h2v1c0 1.33-.84 2.47-2 2.9V8.82zM5 8V7h2v3.9C5.84 10.47 5 9.33 5 8z"/>
             </svg>
-            <span class="font-heading font-bold text-[10px] tracking-widest uppercase px-2.5 py-1 bg-slate-700/40 text-slate-400 border border-slate-600/40">
+            <span class="font-heading font-bold text-xs tracking-widest uppercase px-2.5 py-1 bg-slate-700/40 text-slate-400 border border-slate-600/40">
               Nominee
             </span>
           </div>
-          <p class="font-heading font-semibold text-[10px] tracking-widest uppercase text-slate-500 mb-1">NAVGTR New IP &middot; 2020</p>
+          <p class="font-heading font-semibold text-xs tracking-widest uppercase text-slate-500 mb-1">NAVGTR New IP &middot; 2020</p>
           <p class="font-heading font-bold text-lg uppercase tracking-wide text-white leading-tight mb-3">Sound Mixing in VR</p>
           <p class="font-body text-sm text-slate-400 mt-auto">Asgard's Wrath</p>
         </div>
@@ -508,21 +523,21 @@
           <div style="display:flex;align-items:flex-end;gap:2.5rem;">
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/Unreal_Engine_Logo.svg" alt="Unreal Engine" style="height:84px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">Unreal</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">Unreal</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/fmod-svgrepo-com.svg" alt="FMOD" style="height:60px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">FMOD</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">FMOD</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/wwise_logo.svg" alt="Wwise" style="height:70px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">Wwise</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">Wwise</span>
             </div>
-            <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
-              <img src="Logos/perforce_logo.svg" alt="Perforce" style="height:60px;width:auto;" class="object-contain opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">Perforce</span>
+            <div class="hidden md:flex" style="flex-direction:column;align-items:center;gap:0.75rem;">
+              <img src="Logos/perforce-p4-logo.svg" alt="Perforce" style="height:44px;width:auto;" class="object-contain opacity-50" loading="lazy" />
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">Perforce</span>
             </div>
-            <span class="font-heading font-semibold text-xs text-slate-600 self-end pb-4" style="font-style:italic;">&amp; more</span>
+            <span class="hidden md:flex font-heading font-semibold text-xs text-slate-600 self-end pb-4" style="font-style:italic;">&amp; more</span>
           </div>
         </div>
 
@@ -532,40 +547,40 @@
           <div style="display:flex;align-items:flex-end;gap:2.5rem;">
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/logo-reaper-svgrepo-com.svg" alt="REAPER" style="height:84px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">Reaper</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">Reaper</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/izotope-vector-logo.svg" alt="iZotope" style="height:60px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">iZotope</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">iZotope</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;">
               <img src="Logos/fabfilter-vector-logo.svg" alt="FabFilter" style="height:70px;width:auto;" class="object-contain brightness-0 invert opacity-50" loading="lazy" />
-              <span class="font-heading font-semibold text-[10px] tracking-[0.25em] uppercase text-slate-500">FabFilter</span>
+              <span class="font-heading font-semibold text-xs tracking-[0.25em] uppercase text-slate-500">FabFilter</span>
             </div>
-            <span class="font-heading font-semibold text-xs text-slate-600 self-end pb-4" style="font-style:italic;">&amp; more</span>
+            <span class="hidden md:flex font-heading font-semibold text-xs text-slate-600 self-end pb-4" style="font-style:italic;">&amp; more</span>
           </div>
         </div>
 
         <!-- Disciplines -->
         <div class="reveal bg-[#0d1424] border border-white/5" style="padding:1.5rem;">
           <p class="font-heading font-bold text-xl uppercase tracking-wide text-slate-300" style="margin-bottom:1.5rem;">Disciplines</p>
-          <ul class="space-y-3 font-body text-slate-400 text-sm leading-relaxed">
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Sound Design: gameplay, creature, weapons, &amp; environments</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Audio implementation &amp; systems architecture</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>VO direction, recording &amp; processing</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>In-game cinematics &amp; linear media</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Foley &amp; field recording</li>
+          <ul class="space-y-1.5 font-body text-slate-400 text-sm leading-relaxed">
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Sound Design: gameplay, creature, weapons, &amp; environments</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Audio implementation &amp; systems architecture</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>VO direction, recording &amp; processing</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>In-game cinematics &amp; linear media</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Foley &amp; field recording</li>
           </ul>
         </div>
 
         <!-- Leadership & Workflow -->
         <div class="reveal reveal-delay-1 bg-[#0d1424] border border-white/5" style="padding:1.5rem;">
           <p class="font-heading font-bold text-xl uppercase tracking-wide text-slate-300" style="margin-bottom:1.5rem;">Production &amp; Workflow</p>
-          <ul class="space-y-3 font-body text-slate-400 text-sm leading-relaxed">
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Cross-discipline collaboration</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Agile workflows</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Audio documentation &amp; asset management</li>
-            <li class="flex items-start gap-3"><span class="w-1 h-1 rounded-full bg-[#e84b3a] shrink-0 mt-2"></span>Team mentorship &amp; pipeline optimisation</li>
+          <ul class="space-y-1.5 font-body text-slate-400 text-sm leading-relaxed">
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Cross-discipline collaboration</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Agile workflows</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Audio documentation &amp; asset management</li>
+            <li class="flex items-start gap-3"><span class="rounded-full shrink-0 mt-2" style="width:5px;height:5px;background-color:#475569;"></span>Team mentorship &amp; pipeline optimisation</li>
           </ul>
         </div>
 
@@ -588,7 +603,7 @@
       <form id="contact-form" class="space-y-4 reveal reveal-delay-1" novalidate>
         <div class="grid sm:grid-cols-2 gap-4">
           <div>
-            <label class="block font-heading text-[10px] tracking-widest uppercase text-slate-400 mb-2" for="name">Name</label>
+            <label class="block font-heading font-semibold text-xs tracking-widest uppercase text-slate-400 mb-2" for="name">Name</label>
             <input
               type="text" id="name" name="name" autocomplete="name" required
               placeholder="Your Name"
@@ -596,7 +611,7 @@
             />
           </div>
           <div>
-            <label class="block font-heading text-[10px] tracking-widest uppercase text-slate-400 mb-2" for="email">Email</label>
+            <label class="block font-heading font-semibold text-xs tracking-widest uppercase text-slate-400 mb-2" for="email">Email</label>
             <input
               type="email" id="email" name="email" autocomplete="email" required
               placeholder="your@email.com"
@@ -605,7 +620,7 @@
           </div>
         </div>
         <div>
-          <label class="block font-heading text-[10px] tracking-widest uppercase text-slate-400 mb-2" for="subject">Subject</label>
+          <label class="block font-heading font-semibold text-xs tracking-widest uppercase text-slate-400 mb-2" for="subject">Subject</label>
           <input
             type="text" id="subject" name="subject"
             placeholder="Subject"
@@ -613,7 +628,7 @@
           />
         </div>
         <div>
-          <label class="block font-heading text-[10px] tracking-widest uppercase text-slate-400 mb-2" for="message">Message</label>
+          <label class="block font-heading font-semibold text-xs tracking-widest uppercase text-slate-400 mb-2" for="message">Message</label>
           <textarea
             id="message" name="message" rows="6" required
             placeholder="Your message…"
@@ -666,7 +681,7 @@
       <!-- Wordmark -->
       <div class="flex items-center gap-3">
         <div class="w-8 h-8 border border-[#e84b3a] flex items-center justify-center">
-          <span class="font-heading font-bold text-[10px] text-[#e84b3a]">TP</span>
+          <span class="font-heading font-bold text-xs text-[#e84b3a]">TP</span>
         </div>
         <span class="font-heading text-sm tracking-[0.2em] uppercase text-slate-400">Tristan Panniers</span>
       </div>
