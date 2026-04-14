@@ -95,7 +95,28 @@ const reelItems    = document.querySelectorAll('.reel-item');
 let activePlayer   = reelPlayerA;
 let inactivePlayer = reelPlayerB;
 
-function setActiveReel(item) {
+// Append autoplay param to any embed URL
+function withAutoplay(src) {
+  return src + (src.includes('?') ? '&' : '?') + 'autoplay=1';
+}
+
+// Send pause/stop command to a player iframe
+function stopPlayer(iframe) {
+  try {
+    const src = iframe.src;
+    if (src.includes('youtube.com')) {
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'stopVideo', args: '' }), '*'
+      );
+    } else if (src.includes('vimeo.com')) {
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ method: 'pause' }), 'https://player.vimeo.com'
+      );
+    }
+  } catch (e) {}
+}
+
+function setActiveReel(item, autoplay = true) {
   // Update playlist UI
   reelItems.forEach(el => {
     el.classList.remove('reel-item--active');
@@ -106,25 +127,42 @@ function setActiveReel(item) {
   reelTitle.textContent = item.dataset.title;
   reelDesc.innerHTML    = item.dataset.desc;
 
-  // Crossfade: load new src into the hidden layer, bring it to front,
-  // then fire both opacity transitions simultaneously
-  inactivePlayer.src           = item.dataset.src;
+  // Stop the currently active player immediately
+  stopPlayer(activePlayer);
+
+  // Load new src (with autoplay if requested) into inactive layer and crossfade
+  const src = autoplay ? withAutoplay(item.dataset.src) : item.dataset.src;
+  inactivePlayer.src           = src;
   inactivePlayer.style.zIndex  = '2';
   activePlayer.style.zIndex    = '1';
   inactivePlayer.style.opacity = '1';
   activePlayer.style.opacity   = '0';
 
+  // After fade completes, clear old player's src to fully stop it
+  const oldPlayer = activePlayer;
+  setTimeout(() => { oldPlayer.src = ''; }, 500);
+
   // Swap layers for next transition
   [activePlayer, inactivePlayer] = [inactivePlayer, activePlayer];
 }
 
+// Clicks always autoplay
 reelItems.forEach(item => {
-  item.addEventListener('click', () => setActiveReel(item));
+  item.addEventListener('click', () => setActiveReel(item, true));
 });
 
-// Set initial active state
+// Initial state: item 01 shown but NOT autoplaying
 const initialActive = document.querySelector('.reel-item--active');
 if (initialActive) initialActive.style.boxShadow = 'inset 3px 0 0 0 #e84b3a';
+
+// Stop video when the player scrolls out of view
+const reelPlayerContainer = reelPlayerA.closest('.relative');
+const reelScrollObserver = new IntersectionObserver((entries) => {
+  if (!entries[0].isIntersecting) {
+    stopPlayer(activePlayer);
+  }
+}, { threshold: 0 });
+reelScrollObserver.observe(reelPlayerContainer);
 
 // ── Contact form (Formspree) ──────────────────────────────
 const contactForm = document.getElementById('contact-form');
