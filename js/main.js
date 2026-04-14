@@ -87,20 +87,44 @@ const sectionObserver = new IntersectionObserver(
 sections.forEach(s => sectionObserver.observe(s));
 
 // ── Demo Reel playlist ────────────────────────────────────
-const reelPlayer = document.getElementById('reel-player');
-const reelTitle  = document.getElementById('reel-title');
-const reelDesc   = document.getElementById('reel-desc');
-const reelItems  = document.querySelectorAll('.reel-item');
+const reelPlayerA  = document.getElementById('reel-player-a');
+const reelPlayerB  = document.getElementById('reel-player-b');
+const reelTitle    = document.getElementById('reel-title');
+const reelDesc     = document.getElementById('reel-desc');
+const reelItems    = document.querySelectorAll('.reel-item');
+let activePlayer   = reelPlayerA;
+let inactivePlayer = reelPlayerB;
+
+function setActiveReel(item) {
+  // Update playlist UI
+  reelItems.forEach(el => {
+    el.classList.remove('reel-item--active');
+    el.style.boxShadow = 'none';
+  });
+  item.classList.add('reel-item--active');
+  item.style.boxShadow = 'inset 3px 0 0 0 #e84b3a';
+  reelTitle.textContent = item.dataset.title;
+  reelDesc.innerHTML    = item.dataset.desc;
+
+  // Crossfade: load new src into the hidden layer, bring it to front,
+  // then fire both opacity transitions simultaneously
+  inactivePlayer.src           = item.dataset.src;
+  inactivePlayer.style.zIndex  = '2';
+  activePlayer.style.zIndex    = '1';
+  inactivePlayer.style.opacity = '1';
+  activePlayer.style.opacity   = '0';
+
+  // Swap layers for next transition
+  [activePlayer, inactivePlayer] = [inactivePlayer, activePlayer];
+}
 
 reelItems.forEach(item => {
-  item.addEventListener('click', () => {
-    reelItems.forEach(el => el.classList.remove('reel-item--active'));
-    item.classList.add('reel-item--active');
-    reelPlayer.src   = item.dataset.src;
-    reelTitle.textContent = item.dataset.title;
-    reelDesc.innerHTML    = item.dataset.desc;
-  });
+  item.addEventListener('click', () => setActiveReel(item));
 });
+
+// Set initial active state
+const initialActive = document.querySelector('.reel-item--active');
+if (initialActive) initialActive.style.boxShadow = 'inset 3px 0 0 0 #e84b3a';
 
 // ── Contact form (Formspree) ──────────────────────────────
 const contactForm = document.getElementById('contact-form');
