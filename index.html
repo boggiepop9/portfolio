@@ -124,9 +124,9 @@
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40" aria-hidden="true">
-      <span class="font-heading text-xs tracking-[0.3em] uppercase text-slate-400">Scroll</span>
-      <div class="w-px h-10 bg-gradient-to-b from-slate-400 to-transparent"></div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style="opacity:0.65;" aria-hidden="true">
+      <span class="font-heading text-sm tracking-[0.3em] uppercase text-slate-300">Scroll</span>
+      <div style="width:1px;height:40px;background:linear-gradient(to bottom,#cbd5e1,transparent);"></div>
     </div>
   </section>
 
@@ -634,7 +634,7 @@
           <textarea
             id="message" name="message" rows="6" required
             placeholder="Your message…"
-            class="w-full bg-[#080c18] border border-white/10 text-white px-4 py-3 font-body text-sm placeholder-slate-600 focus:outline-none focus:border-[#e84b3a] transition-colors duration-200 resize-none"
+            class="w-full bg-[#080c18] border border-white/10 text-white px-4 py-3 font-body text-base placeholder-slate-600 focus:outline-none focus:border-[#e84b3a] transition-colors duration-200 resize-none"
           ></textarea>
         </div>
         <button
